@@ -101,16 +101,37 @@ class VerficationScreen extends StatelessWidget {
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 24, right: 24, top: 40),
-                      child: PinInputTextField( 
+                      child: PinInputTextField(
                         pinLength: 6,
                         textInputAction: TextInputAction.done,
                         decoration: CirclePinDecoration(
                             strokeColorBuilder: FixedColorBuilder(
                                 Theme.of(context).primaryColor),
-                                hintText: "345678",
-                                errorText: "error"),
-                       ),
-                    )   
+                            hintText: "345678",
+                            errorText: "error",
+                            strokeWidth: 2,
+                            hintTextStyle: TextStyle(
+                                color: Theme.of(context).disabledColor,
+                                fontSize: 20)),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 24, right: 24, bottom: 30, top: 40),
+                      child: Container(
+                        height: 48,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: const Offset(4, 4),
+                                  blurRadius: 10,
+                                  color: Theme.of(context)
+                                      .disabledColor
+                                      .withOpacity(0.1))
+                            ]),
+                      ),
+                    )
                   ],
                 ),
               ))
