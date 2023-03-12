@@ -1,11 +1,12 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/controllers/login_controller.dart';
 import 'package:flutter_chat/screen/verfication_screen.dart';
 import 'package:get/get.dart';
 import 'package:country_code_picker_mp/country_code_picker.dart';
 
-class NumberScreen extends StatelessWidget {
+class NumberScreen extends GetView<LoginController> {
   const NumberScreen({super.key});
 
   @override
@@ -111,12 +112,12 @@ class NumberScreen extends StatelessWidget {
                                         blurRadius: 10)
                                   ]),
                               child: CountryCodePicker(
-                                favorite: const ["Chinese"],
+                                favorite: const ["Myanmar"],
                                 closeIcon: Icon(
                                   Icons.close,
                                   color: Theme.of(context).primaryColor,
                                 ),
-                                initialSelection: "Chinese",
+                                initialSelection: "Myanmar",
                                 textStyle: TextStyle(
                                     color: Theme.of(context).primaryColor),
                                 onChanged: (countryCode) {
@@ -127,11 +128,12 @@ class NumberScreen extends StatelessWidget {
                             const SizedBox(
                               width: 20,
                             ),
-                            Expanded(child: Container(
+                            Expanded(
+                                child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
                                   color:
-                                  Theme.of(context).colorScheme.background,
+                                      Theme.of(context).colorScheme.background,
                                   boxShadow: [
                                     BoxShadow(
                                         color: Theme.of(context)
@@ -139,64 +141,64 @@ class NumberScreen extends StatelessWidget {
                                             .withOpacity(0.1),
                                         offset: const Offset(4, 4),
                                         blurRadius: 10)
-                                  ]
-                              ),
-                              child: Padding(padding: const EdgeInsets.only(
-                                left: 15,
-                                right: 15
-                              ),
-                              child: Container(
-                                height: 48,
-                                child: Center(
-                                  child: TextField(
-                                    keyboardType: TextInputType.number,
-                                    cursorColor: Theme.of(context).primaryColor,
-                                    maxLines: 1,
-                                    decoration: const InputDecoration(
-                                      errorMaxLines: 1,
-                                      contentPadding: EdgeInsets.only(top: 5, bottom: 5),
-                                      errorText: "no error",
-                                      border: InputBorder.none,
-                                      hintText: "Number"
-                                    ),
+                                  ]),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                child: Container(
+                                  height: 48,
+                                  child: Center(
+                                    child: Obx(() => TextField(
+                                          controller: controller.numberController,
+                                          keyboardType: TextInputType.number,
+                                          cursorColor:
+                                              Theme.of(context).primaryColor,
+                                          maxLines: 1,
+                                          decoration: InputDecoration(
+                                              errorMaxLines: 1,
+                                              contentPadding: const EdgeInsets.only(
+                                                  top: 5, bottom: 5),
+                                              errorText: controller.numberError.value.isEmpty?null:controller.numberError.value,
+                                              border: InputBorder.none,
+                                              hintText: "Number"),
+                                        )),
                                   ),
                                 ),
-                              ),),
+                              ),
                             ))
                           ]),
                     ),
-                    Padding(padding:const EdgeInsets.only(left: 24, right: 24, top: 40),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 24, right: 24, top: 40),
                       child: Container(
                         height: 48,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Theme.of(context).primaryColor,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Theme.of(context).disabledColor.withOpacity(0.1),
-                              offset:const Offset(4,4),
-                              blurRadius: 10
-                            )
-                          ]
-                        ),
+                            borderRadius: BorderRadius.circular(30),
+                            color: Theme.of(context).primaryColor,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Theme.of(context)
+                                      .disabledColor
+                                      .withOpacity(0.1),
+                                  offset: const Offset(4, 4),
+                                  blurRadius: 10)
+                            ]),
                         child: Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: (){
-                              Get.to(const VerficationScreen());
-                            },
-                            borderRadius: BorderRadius.circular(30),
-                            child: const Center(
-                              child: Text(
-                                "Generate OTP",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20
-                                )
-                              ),
-                            )
-                          ),
+                              onTap: () {
+                                controller.sendOTP();
+                                //Get.to(const VerficationScreen());
+                              },
+                              borderRadius: BorderRadius.circular(30),
+                              child: const Center(
+                                child: Text("Generate OTP",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20)),
+                              )),
                         ),
                       ),
                     )

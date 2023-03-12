@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat/appTheme.dart';
+import 'package:flutter_chat/bindings/initial_binding.dart';
 import 'package:flutter_chat/screen/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      initialBinding: InitialBinding(),
       darkTheme: darkThemeData(context),
       theme: lightThemeData(context),
       themeMode: ThemeMode.system,
